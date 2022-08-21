@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css"
+        integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <title>Music Player</title>
+</head>
+
+<body onclick>
+    <div class="main">
+        <!-- Player -->
+        <div class="player">
+            <div class="player-image player-image--active"
+                style="background-image: url('./assets/imgs/musical-note.png');">
+            </div>
+            <div class="song">
+                <div class="btn-playlist">
+                    <i class="fa-solid fa-list"></i>
+                </div>
+                <header class="song-heading">
+                    <h4>Now playing:</h4>
+                    <h2 class="song-heading__name">Song name</h2>
+                    <p class="song-heading__performer">Performers</p>
+                </header>
+                <div class="song-control">
+                    <div class="btn btn-toggle-repeat">
+                        <i class="fa-solid fa-repeat"></i>
+                        <span class="icon-repeat-1">1</span>
+                    </div>
+                    <div class="btn btn-prev">
+                        <i class="fa-solid fa-backward"></i>
+                    </div>
+                    <div class="btn btn-toggle-play">
+                        <i class="fa-solid fa-play icon-play"></i>
+                        <i class="fa-solid fa-pause icon-pause"></i>
+                    </div>
+                    <div class="btn btn-next">
+                        <i class="fa-solid fa-forward"></i>
+                    </div>
+                    <div class="btn btn-shuffle">
+                        <i class="fa-solid fa-shuffle"></i>
+                    </div>
+                </div>
+                <div class="progress-area">
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress"></div>
+                        </div>
+                    </div>
+                    <div class="progress-duration">
+                        <span class="progress-start">0:00</span>
+                        <span class="progress-end">4:00</span>
+                    </div>
+                </div>
+                <div class="volume-area">
+                    <div class="volume-icon volume-icon--high">
+                        <i class="fa-solid fa-volume-xmark icon-mute"></i>
+                        <i class="fa-solid fa-volume-low icon-low"></i>
+                        <i class="fa-solid fa-volume-high icon-high"></i>
+                    </div>
+                    <div class="volume-bar">
+                        <div class="volume"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Playlist -->
+            <div class="playlist">
+                <div class="playlist-playing">
+                    <div class="playlist-item">
+                        <div class="playlist-item__thumb">
+                            <div class="playlist-item__image"
+                                style="background-image: url('./assets/imgs/musical-note.png');">
+                            </div>
+                        </div>
+                        <div class="playlist-item__info">
+                            <h2 class="playlist-item__song-name">Playing Song Name</h2>
+                            <p class="playlist-item__performer">Performers</p>
+                        </div>
+                    </div>
+                </div>
+                <p>Playing next</p>
+                <div class="playlist-pending">
+                    <div class="playlist-item">
+                        <div class="playlist-item__thumb">
+                            <div class="playlist-item__image"
+                                style="background-image: url('./assets/imgs/musical-note.png');">
+                            </div>
+                        </div>
+                        <div class="playlist-item__info">
+                            <h2 class="playlist-item__song-name">Song Name</h2>
+                            <p class="playlist-item__performer">Performers</p>
+                        </div>
+                    </div>
+                    <div class="playlist-item">
+                        <div class="playlist-item__thumb">
+                            <div class="playlist-item__image"
+                                style="background-image: url('./assets/imgs/musical-note.png');">
+                            </div>
+                        </div>
+                        <div class="playlist-item__info">
+                            <h2 class="playlist-item__song-name">Song Name</h2>
+                            <p class="playlist-item__performer">Performers</p>
+                        </div>
+                    </div>
+                    <div class="playlist-item">
+                        <div class="playlist-item__thumb">
+                            <div class="playlist-item__image"
+                                style="background-image: url('./assets/imgs/musical-note.png');">
+                            </div>
+                        </div>
+                        <div class="playlist-item__info">
+                            <h2 class="playlist-item__song-name">Song Name</h2>
+                            <p class="playlist-item__performer">Performers</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./assets/js/app.js"></script>
+</body>
+
+</html>
