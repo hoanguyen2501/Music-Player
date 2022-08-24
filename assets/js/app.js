@@ -84,8 +84,8 @@ const app = {
             id: 8,
             name: "Symphony",
             singer: "Clean Bandit, Zara Larsson",
-            path: "../assets/music/Symphony – Clean Bandit, Zara Larsson.mp3",
-            img: "../assets/imgs/Symphony – Clean Bandit, Zara Larsson.png"
+            path: "./assets/music/Symphony – Clean Bandit, Zara Larsson.mp3",
+            img: "./assets/imgs/Symphony – Clean Bandit, Zara Larsson.png"
         },
         {
             id: 9,
