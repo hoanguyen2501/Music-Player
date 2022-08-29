@@ -12,112 +12,126 @@
     <title>Music Player</title>
 </head>
 
-<body onclick>
-    <div class="main">
-        <!-- Player -->
-        <div class="player">
-            <div class="player-image player-image--active"
-                style="background-image: url('./assets/imgs/musical-note.png');">
+<body>
+    <!-- Player -->
+    <div class="player">
+        <div class="player-thumbnail">
+            <!-- <div class="text"></div> -->
+            <div class="player-thumbnail__img hide-on-mobile"
+                style="background-image: url('./assets/imgs/musical-note.png')">
             </div>
-            <div class="song">
-                <div class="btn-playlist">
-                    <i class="fa-solid fa-list"></i>
-                </div>
-                <header class="song-heading">
-                    <h4>Now playing:</h4>
-                    <h2 class="song-heading__name">Song name</h2>
-                    <p class="song-heading__performer">Performers</p>
-                </header>
-                <div class="song-control">
-                    <div class="btn btn-toggle-repeat">
-                        <i class="fa-solid fa-repeat"></i>
-                        <span class="icon-repeat-1">1</span>
-                    </div>
-                    <div class="btn btn-prev">
-                        <i class="fa-solid fa-backward"></i>
-                    </div>
-                    <div class="btn btn-toggle-play">
-                        <i class="fa-solid fa-play icon-play"></i>
-                        <i class="fa-solid fa-pause icon-pause"></i>
-                    </div>
-                    <div class="btn btn-next">
-                        <i class="fa-solid fa-forward"></i>
-                    </div>
-                    <div class="btn btn-shuffle">
-                        <i class="fa-solid fa-shuffle"></i>
+            <img class="player-thumbnail-mobile__img show-in-mobile" src="./assets/imgs/musical-note.png"
+                alt="Song Thumbnail">
+        </div>
+        <div class="song">
+            <header class="song-heading">
+                <p class="song-heading__title hide-on-mobile">Now playing:</p>
+                <h2 class="song-heading__name">Song name</h2>
+                <p class="song-heading__performer">Performers</p>
+            </header>
+            <div class="progress-area">
+                <div class="progress-container">
+                    <div class="progress-bar">
+                        <div class="progress"></div>
                     </div>
                 </div>
-                <div class="progress-area">
-                    <div class="progress-container">
-                        <div class="progress-bar">
-                            <div class="progress"></div>
-                        </div>
-                    </div>
-                    <div class="progress-duration">
-                        <span class="progress-start">0:00</span>
-                        <span class="progress-end">4:00</span>
-                    </div>
+                <div class="progress-duration">
+                    <span class="progress-start">--:--</span>
+                    <span class="progress-end">--:--</span>
                 </div>
-                <div class="volume-area">
-                    <div class="volume-icon volume-icon--high">
-                        <i class="fa-solid fa-volume-xmark icon-mute"></i>
-                        <i class="fa-solid fa-volume-low icon-low"></i>
-                        <i class="fa-solid fa-volume-high icon-high"></i>
-                    </div>
+            </div>
+            <div class="song-control">
+                <div class="btn btn-prev">
+                    <i class="song-control__icon fa-solid fa-backward"></i>
+                </div>
+                <div class="btn btn-toggle-play">
+                    <i class="song-control__icon fa-solid fa-play icon-play"></i>
+                    <i class="song-control__icon fa-solid fa-pause icon-pause"></i>
+                </div>
+                <div class="btn btn-next">
+                    <i class="song-control__icon fa-solid fa-forward"></i>
+                </div>
+            </div>
+            <div class="volume-area">
+                <i class="fa-solid fa-volume-off icon-off"></i>
+                <div class="volume-container">
                     <div class="volume-bar">
                         <div class="volume"></div>
                     </div>
                 </div>
+                <i class="fa-solid fa-volume-high icon-high"></i>
             </div>
-            <!-- Playlist -->
-            <div class="playlist">
-                <div class="playlist-playing">
-                    <div class="playlist-item">
-                        <div class="playlist-item__thumb">
-                            <div class="playlist-item__image"
-                                style="background-image: url('./assets/imgs/musical-note.png');">
-                            </div>
+            <div class="sub-control">
+                <div class="btn btn-toggle-repeat">
+                    <i class="song-control__icon fa-solid fa-repeat"></i>
+                    <span class="icon-repeat-1">1</span>
+                </div>
+                <div class="btn btn-shuffle">
+                    <i class="song-control__icon fa-solid fa-shuffle"></i>
+                </div>
+                <div class="btn btn-playlist">
+                    <i class="song-control__icon fa-solid fa-list-ul"></i>
+                </div>
+            </div>
+        </div><!-- Playlist -->
+        <div class="playlist">
+            <div class="playlist-playing">
+                <div class="playlist-item">
+                    <div class="playlist-item__thumb">
+                        <div class="playlist-thumbnail__img"
+                            style="background-image: url('./assets/imgs/musical-note.png')">
                         </div>
-                        <div class="playlist-item__info">
-                            <h2 class="playlist-item__song-name">Playing Song Name</h2>
-                            <p class="playlist-item__performer">Performers</p>
-                        </div>
+                    </div>
+                    <div class="playlist-item__info">
+                        <h2 class="playlist-item__song-name">Playing Song Name</h2>
+                        <p class="playlist-item__performer">Performers</p>
                     </div>
                 </div>
-                <p>Playing next</p>
-                <div class="playlist-pending">
-                    <div class="playlist-item">
-                        <div class="playlist-item__thumb">
-                            <div class="playlist-item__image"
-                                style="background-image: url('./assets/imgs/musical-note.png');">
-                            </div>
-                        </div>
-                        <div class="playlist-item__info">
-                            <h2 class="playlist-item__song-name">Song Name</h2>
-                            <p class="playlist-item__performer">Performers</p>
+            </div>
+            <p class="pending-title">Playing next</p>
+            <div class="playlist-pending">
+                <div class="playlist-item">
+                    <div class="playlist-item__thumb">
+                        <div class="playlist-thumbnail__img"
+                            style="background-image: url('./assets/imgs/musical-note.png')">
                         </div>
                     </div>
-                    <div class="playlist-item">
-                        <div class="playlist-item__thumb">
-                            <div class="playlist-item__image"
-                                style="background-image: url('./assets/imgs/musical-note.png');">
-                            </div>
-                        </div>
-                        <div class="playlist-item__info">
-                            <h2 class="playlist-item__song-name">Song Name</h2>
-                            <p class="playlist-item__performer">Performers</p>
+                    <div class="playlist-item__info">
+                        <h2 class="playlist-item__song-name">Song Name</h2>
+                        <p class="playlist-item__performer">Performers</p>
+                    </div>
+                </div>
+                <div class="playlist-item">
+                    <div class="playlist-item__thumb">
+                        <div class="playlist-thumbnail__img"
+                            style="background-image: url('./assets/imgs/musical-note.png')">
                         </div>
                     </div>
-                    <div class="playlist-item">
-                        <div class="playlist-item__thumb">
-                            <div class="playlist-item__image"
-                                style="background-image: url('./assets/imgs/musical-note.png');">
-                            </div>
+                    <div class="playlist-item__info">
+                        <h2 class="playlist-item__song-name">Song Name</h2>
+                        <p class="playlist-item__performer">Performers</p>
+                    </div>
+                </div>
+                <div class="playlist-item">
+                    <div class="playlist-item__thumb">
+                        <div class="playlist-thumbnail__img"
+                            style="background-image: url('./assets/imgs/musical-note.png')">
                         </div>
-                        <div class="playlist-item__info">
-                            <h2 class="playlist-item__song-name">Song Name</h2>
-                            <p class="playlist-item__performer">Performers</p>
+                    </div>
+                    <div class="playlist-item__info">
+                        <h2 class="playlist-item__song-name">Song Name</h2>
+                        <p class="playlist-item__performer">Performers</p>
+                    </div>
+                </div>
+                <div class="playlist-item">
+                    <div class="playlist-item__thumb">
+                        <div class="playlist-thumbnail__img"
+                            style="background-image: url('./assets/imgs/musical-note.png')">
                         </div>
+                    </div>
+                    <div class="playlist-item__info">
+                        <h2 class="playlist-item__song-name">Song Name</h2>
+                        <p class="playlist-item__performer">Performers</p>
                     </div>
                 </div>
             </div>
