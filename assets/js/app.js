@@ -2,9 +2,6 @@ const $ = document.querySelector.bind(document);
 const $$ = document.querySelectorAll.bind(document);
 
 const player = $(".player");
-const playerImage = $(".player-image");
-const songName = $(".song-heading__name");
-const performer = $(".song-heading__performer");
 const playToggle = $(".btn-toggle-play");
 const nextBtn = $(".btn-next");
 const prevBtn = $(".btn-prev");
@@ -15,12 +12,13 @@ const progessStart = $(".progress-start");
 const progessEnd = $(".progress-end");
 const btnRepeat = $(".btn-toggle-repeat");
 const btnShuffle = $(".btn-shuffle");
-const volumeBtn = $(".volume-icon");
+const volumeContainer = $(".volume-container")
 const volumeBar = $(".volume-bar");
 const volume = $(".volume-bar .volume");
-const playlist = $(".playlist");
 const pendingPlaylist = $(".playlist-pending");
-const btnPlaylist = $(".btn-playlist");
+const playlistBtn = $(".btn-playlist");
+const body = document.body;
+
 
 const app = {
     currentIndex: 0,
@@ -141,6 +139,28 @@ const app = {
         });
         playingThumbRotate.cancel();
 
+        body.onresize = function () {
+            const playlist = $(".playlist");
+            if (_this.isShownPlaylist) {
+                if (body.clientWidth > 640) {
+                    playlist.style.height = "100%";
+                    playlist.style.width = `var(--player-height)`;
+                } else {
+                    const playlistHeight = body.clientHeight * 0.5;
+                    playlist.style.width = "100%";
+                    playlist.style.height = `${playlistHeight}px`;
+                }
+            } else {
+                if (body.clientWidth > 640) {
+                    playlist.style.height = "100%";
+                    playlist.style.width = 0;
+                } else {
+                    playlist.style.width = "100%";
+                    playlist.style.height = 0;
+                }
+            }
+        };
+
         // Xử lý khi click play
         playToggle.addEventListener("click", function () {
             if (!_this.isPlaying) {
@@ -227,7 +247,6 @@ const app = {
                 }
             }
             playingThumbRotate.cancel();
-            playingThumbRotate.play();
         });
 
         // Xử lý thay đổi tiến độ bài hát
@@ -300,63 +319,62 @@ const app = {
         // Xử lý khi nhấn nút Repeat
         btnRepeat.addEventListener("click", function () {
             _this.selectedRepeat++;
-            if (_this.selectedRepeat === 1) {
-                _this.playerFlow.repeat = true;
-                this.classList.add("btn-toggle-repeat--active");
-            } else if (_this.selectedRepeat === 2) {
-                _this.playerFlow.repeat = false;
-                _this.playerFlow.repeatOne = true;
-                this.classList.remove("btn-toggle-repeat--active");
-                this.classList.add("btn-toggle-repeat-1--active");
-            }
-            else {
-                _this.selectedRepeat = 0;
-                _this.playerFlow.repeat = false;
-                _this.playerFlow.repeatOne = false;
-                this.classList.remove("btn-toggle-repeat-1--active");
-            }
-        });
-
-        // Xử lý khi tắt/mở âm lượng
-        volumeBtn.addEventListener("click", function () {
-            _this.isMuted = !_this.isMuted;
-            if (!_this.isMuted) {
-                audio.muted = false;
-                let volumePercent = volume.clientHeight / volumeBar.clientHeight;
-                _this.changeVolumeState(volumePercent);
-            }
-            else {
-                var currentVolumeState = volumeBtn.classList[1];
-                audio.muted = true;
-                this.classList.remove(currentVolumeState);
-                this.classList.add("volume-icon--mute");
+            switch (_this.selectedRepeat) {
+                case 1:
+                    _this.playerFlow.repeat = true;
+                    this.classList.add("btn-toggle-repeat--active");
+                    break;
+                case 2:
+                    _this.playerFlow.repeat = false;
+                    _this.playerFlow.repeatOne = true;
+                    this.classList.remove("btn-toggle-repeat--active");
+                    this.classList.add("btn-toggle-repeat-1--active");
+                    break;
+                default:
+                    _this.selectedRepeat = 0;
+                    _this.playerFlow.repeat = false;
+                    _this.playerFlow.repeatOne = false;
+                    this.classList.remove("btn-toggle-repeat-1--active");
+                    break;
             }
         });
 
         // Xử lý khi nhấn thay đổi âm lượng 
         volumeBar.addEventListener("mousedown", function (event) {
             _this.isHoldingProgress = true;
-            let volumePercent = event.offsetY / event.target.offsetHeight;
+            let volumePercent = event.offsetX / event.target.offsetWidth;
             audio.volume = volumePercent;
-            volume.style.height = `${volumePercent * 100}%`;
+            volume.style.width = `${volumePercent * 100}%`;
             _this.changeVolumeState(volumePercent);
         });
 
         // Xử lý khi kéo thay đổi âm lượng 
-        volumeBar.addEventListener("mousemove", function (event) {
+        volumeContainer.addEventListener("mousemove", function (event) {
             if (_this.isHoldingProgress) {
-                let volumePercent = event.offsetY / event.target.offsetHeight;
+                let volumePercent = event.offsetX / event.target.offsetWidth;
                 audio.volume = volumePercent >= 0 ? volumePercent : 0;
-                volume.style.height = `${volumePercent * 100}%`;
+                volume.style.width = `${volumePercent * 100}%`;
                 _this.changeVolumeState(volumePercent);
             }
         });
 
         // Xử lý khi hiện playlist
-        btnPlaylist.addEventListener("click", function () {
+        playlistBtn.addEventListener("click", function () {
+            const playlist = $(".playlist");
+            const playerThumbnail = $(".player-thumbnail");
+
             _this.isShownPlaylist = !_this.isShownPlaylist;
             playlist.classList.toggle("playlist--active", _this.isShownPlaylist);
-            playerImage.classList.toggle("player-image--active", !_this.isShownPlaylist);
+            playerThumbnail.classList.toggle("player-thumbnail--unactive", _this.isShownPlaylist);
+
+            if (document.body.clientWidth > 640) {
+                playlist.style.width = _this.isShownPlaylist === true ?
+                    `${playerThumbnail.clientHeight}px` : 0;
+            } else {
+                playlist.style.width = "100%";
+                playlist.style.height = _this.isShownPlaylist === true ?
+                    `${playerThumbnail.clientHeight}px` : 0;
+            }
         });
 
         // Xử lý khi chọn bài hát trong playlist
@@ -385,33 +403,27 @@ const app = {
     },
 
     changeVolumeState: function (volumePercent) {
-        var currentVolumeState = volumeBtn.classList[1];
-        if (volumePercent > 0 && volumePercent <= 0.5) {
-            volume.style.height = `${volumePercent * 100}%`;
-            volumeBtn.classList.remove(currentVolumeState);
-            volumeBtn.classList.add("volume-icon--low");
-        } else if (volumePercent > 0.5) {
-            volume.style.height = `${volumePercent * 100}%`;
-            volumeBtn.classList.remove(currentVolumeState);
-            volumeBtn.classList.add("volume-icon--high");
-        } else {
-            volume.style.height = `${volumePercent * 100}%`;
-            volumeBtn.classList.remove(currentVolumeState);
-            volumeBtn.classList.add("volume-icon--mute");
-        }
+        volume.style.width = `${volumePercent * 100}%`;
     },
 
     loadCurrentSong: function () {
+        const playerImgae = $(".player-thumbnail__img");
+        const playerMobileImage = $(".player-thumbnail-mobile__img");
+        const songName = $(".song-heading__name");
+        const performer = $(".song-heading__performer");
         // Tải bài hát trên player
-        playerImage.style.backgroundImage = `url('${this.currentSong.img}')`;
+        playerImgae.style.backgroundImage = `url('${this.currentSong.img}')`;
+        playerMobileImage.src = this.currentSong.img;
         songName.textContent = this.currentSong.name;
         performer.textContent = this.currentSong.singer;
+        progress.style.width = 0;
+        progessStart.textContent = "0:00";
         const audio = $("audio");
         if (!audio) {
             let newAudio = document.createElement("audio");
             newAudio.src = `${this.currentSong.path}`;
             newAudio.id = "audio";
-            newAudio.volume = 0.5;
+            newAudio.volume = 0.75;
             newAudio.setAttribute("data-song-id", this.currentSong.id);
             player.appendChild(newAudio);
             this.changeVolumeState(newAudio.volume);
@@ -423,7 +435,7 @@ const app = {
         }
         // Tải bài hát trên playlist
         const playingSong = $(".playlist-playing .playlist-item");
-        const playingSongImage = $(".playlist-playing .playlist-item__image");
+        const playingSongImage = $(".playlist-playing .playlist-thumbnail__img");
         const playingSongName = $(".playlist-playing .playlist-item__song-name");
         const playingPerformer = $(".playlist-playing .playlist-item__performer");
 
@@ -442,9 +454,10 @@ const app = {
                 if (song.id !== _this.currentSong.id)
                     return `
                 <div class="playlist-item"
-                id="${song.id}" data-index="${index}">
+                        id="${song.id}" data-index="${index}">
                     <div class="playlist-item__thumb">
-                        <div class="playlist-item__image" style="background-image: url('${song.img}');">
+                        <div class="playlist-thumbnail__img"
+                                style="background-image: url('${song.img}')">
                         </div>
                     </div>
                     <div class="playlist-item__info">
@@ -459,9 +472,10 @@ const app = {
                 if (song.id !== _this.currentSong.id)
                     return `
                 <div class="playlist-item ${_this.currentIndex === index ? 'playing' : ''}"
-                id="${song.id}" data-index="${index}">
+                        id="${song.id}" data-index="${index}">
                     <div class="playlist-item__thumb">
-                        <div class="playlist-item__image" style="background-image: url('${song.img}');">
+                        <div class="playlist-thumbnail__img"
+                                style="background-image: url('${song.img}')">
                         </div>
                     </div>
                     <div class="playlist-item__info">
