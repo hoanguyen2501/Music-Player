@@ -15,6 +15,8 @@ const btnShuffle = $(".btn-shuffle");
 const volumeContainer = $(".volume-container")
 const volumeBar = $(".volume-bar");
 const volume = $(".volume-bar .volume");
+const highVolume = $(".volume-area .icon-high");
+const offVolume = $(".volume-area .icon-off");
 const pendingPlaylist = $(".playlist-pending");
 const playlistBtn = $(".btn-playlist");
 const body = document.body;
@@ -358,6 +360,20 @@ const app = {
             }
         });
 
+        // Xử lý mở tối đa âm lượng
+        highVolume.addEventListener("click", function (event) {
+            let volumePercent = 1;
+            audio.volume = 1.0;
+            _this.changeVolumeState(volumePercent);
+        });
+
+        // Xử lý tắt âm lượng
+        offVolume.addEventListener("click", function (event) {
+            let volumePercent = 0;
+            audio.volume = 0;
+            _this.changeVolumeState(volumePercent);
+        });
+
         // Xử lý khi hiện playlist
         playlistBtn.addEventListener("click", function () {
             const playlist = $(".playlist");
@@ -423,7 +439,7 @@ const app = {
             let newAudio = document.createElement("audio");
             newAudio.src = `${this.currentSong.path}`;
             newAudio.id = "audio";
-            newAudio.volume = 0.75;
+            newAudio.volume = 0.6;
             newAudio.setAttribute("data-song-id", this.currentSong.id);
             player.appendChild(newAudio);
             this.changeVolumeState(newAudio.volume);
