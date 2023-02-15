@@ -247,6 +247,16 @@ body {
     margin: 0 auto;
 }
 
+.volume-area .icon-off:hover,
+.volume-area .icon-high:hover {
+    cursor: pointer;
+}
+
+.volume-area .icon-off:active,
+.volume-area .icon-high:active {
+    opacity: 0.7;
+}
+
 .volume-container {
     position: relative;
     height: 12px;
